@@ -1,6 +1,6 @@
 # Thiệp mời sinh nhật Minh Tâm
 
-Website thiệp mời sinh nhật cho Huỳnh Thị Minh Tâm, thiết kế như trải nghiệm mở một lá thư/tin nhắn trên điện thoại: cinematic, lãng mạn, có nhạc nền, countdown, bản đồ và file lịch `.ics`.
+Website thiệp mời sinh nhật cho Huỳnh Thị Minh Tâm, thiết kế như một lá thư riêng tư: mở phong thư, lá thư trượt lên, lật từ mặt sau sang mặt chính, nội dung tiếng Anh hiện dần rồi chuyển sang phần thông tin sinh nhật.
 
 ## Cách chạy project
 
@@ -37,37 +37,25 @@ npm run preview
 public/images/minh-tam.jpg
 ```
 
-Nếu chưa có ảnh, website sẽ hiển thị placeholder: `Đặt ảnh tại public/images/minh-tam.jpg`.
-
-Nếu muốn đổi tên file ảnh, sửa trường `imagePath` trong:
-
-```text
-src/config/invitation.ts
-```
+Nếu chưa có ảnh, website sẽ hiển thị placeholder trong khung ảnh.
 
 ## Thêm nhạc nền
 
-Website phát file:
+Đặt file nhạc nước ngoài du dương, trầm ấm, không bản quyền tại `public/audio/background.mp3`.
 
-```text
-public/audio/background.mp3
-```
+Website có thẻ audio `preload="auto"` và `loop`. App sẽ cố gắng phát nhạc khi mở link. Nếu trình duyệt chặn autoplay có âm thanh, nhạc sẽ phát ngay khi người dùng chạm lần đầu để mở thư. Có nút bật/tắt nhạc nhỏ ở góc màn hình.
 
-Bạn hãy đặt một bài nhạc nước ngoài du dương, trầm ấm, không bản quyền vào `public/audio/background.mp3`.
-
-Nhạc chỉ phát sau khi người dùng bấm/chạm để mở thiệp, vì trình duyệt thường chặn autoplay. Có nút bật/tắt nhạc ở góc màn hình.
-
-Gợi ý nguồn nhạc không bản quyền:
+Gợi ý nguồn nhạc:
 
 - Pixabay Music
 - YouTube Audio Library
 - Free Music Archive
 
-Từ khóa nên tìm:
+Từ khóa:
 
 - `warm romantic piano instrumental`
-- `soft birthday background music`
-- `cinematic romantic piano no copyright`
+- `soft romantic birthday background`
+- `cinematic piano love no copyright`
 
 ## Sửa nội dung thiệp
 
@@ -77,7 +65,7 @@ Toàn bộ nội dung chính nằm trong:
 src/config/invitation.ts
 ```
 
-Các thông tin hiện tại:
+Thông tin hiện tại:
 
 - Sinh nhật: Huỳnh Thị Minh Tâm
 - Ngày: 17/06/2026
@@ -90,7 +78,7 @@ Các thông tin hiện tại:
 
 Project dùng React + Vite + TypeScript.
 
-Vercel config đã đặt trong `vercel.json`:
+Vercel config nằm trong `vercel.json`:
 
 ```json
 {
@@ -101,10 +89,8 @@ Vercel config đã đặt trong `vercel.json`:
 }
 ```
 
-Script build trong `package.json` giữ là:
+Script build trong `package.json` phải giữ là:
 
 ```json
 "build": "vite build"
 ```
-
-Khi push lên GitHub branch `main`, Vercel có thể tự build và deploy.
