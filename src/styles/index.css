@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: 'Be Vietnam Pro', Inter, system-ui, sans-serif;
+  background: #fff7f4;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.luxury-envelope {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.envelope-body {
+  position: absolute;
+  inset: 18% 0 0;
+  overflow: hidden;
+  border: 1px solid rgba(231, 207, 154, 0.75);
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.58), transparent 34%),
+    linear-gradient(135deg, #fff8eb 0%, #f6d8df 48%, #d9c9fb 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -28px 60px rgba(128, 73, 110, 0.16),
+    0 28px 70px rgba(0, 0, 0, 0.28);
+}
+
+.envelope-body::before,
+.envelope-body::after {
+  content: '';
+  position: absolute;
+  bottom: -5%;
+  width: 58%;
+  height: 86%;
+  border-top: 1px solid rgba(176, 133, 68, 0.3);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 240, 244, 0.28));
+}
+
+.envelope-body::before {
+  left: -5%;
+  transform: skewY(30deg);
+  transform-origin: bottom left;
+}
+
+.envelope-body::after {
+  right: -5%;
+  transform: skewY(-30deg);
+  transform-origin: bottom right;
+}
+
+.envelope-flap {
+  position: absolute;
+  z-index: 4;
+  inset: 0 0 43%;
+  transform-origin: bottom center;
+  border: 1px solid rgba(231, 207, 154, 0.72);
+  border-radius: 1.5rem 1.5rem 0.9rem 0.9rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.58), transparent 36%),
+    linear-gradient(145deg, #fff7e5 0%, #edcdd7 54%, #cdbcf5 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 18px 50px rgba(92, 52, 83, 0.2);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-style: preserve-3d;
+}
+
+.envelope-letter {
+  position: absolute;
+  z-index: 2;
+  left: 12%;
+  right: 12%;
+  top: 18%;
+  display: flex;
+  height: 58%;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(231, 207, 154, 0.72);
+  border-radius: 1.2rem;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 229, 184, 0.54), transparent 45%),
+    linear-gradient(180deg, #fffdf8, #fff4f7);
+  color: #764364;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 8vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  box-shadow: 0 18px 50px rgba(87, 47, 78, 0.2);
+}
+
+.envelope-shine {
+  position: absolute;
+  z-index: 6;
+  inset: 18% 0 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  pointer-events: none;
+}
+
+.envelope-shine::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  left: -75%;
+  width: 46%;
+  height: 150%;
+  transform: rotate(20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.58), transparent);
+  animation: shineSweep 3.3s ease-in-out infinite;
+}
+
+.envelope-seal {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  top: 57%;
+  display: flex;
+  height: 4rem;
+  width: 4rem;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 234, 189, 0.75);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 25%, #fff1d0, #d7a66b 48%, #9b5e72 100%);
+  color: #fff7ec;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 14px 35px rgba(106, 55, 91, 0.34);
+}
+
+@keyframes shineSweep {
+  0%,
+  42% {
+    transform: translateX(0) rotate(20deg);
+  }
+
+  100% {
+    transform: translateX(420%) rotate(20deg);
+  }
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) rotate(-3deg);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: translateY(-120vh) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translateY(-55vh) translateX(18px) rotate(12deg);
+  }
+
+  100% {
+    transform: translateY(-115vh) translateX(-14px) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .envelope-seal {
+    height: 3.35rem;
+    width: 3.35rem;
+  }
+}
