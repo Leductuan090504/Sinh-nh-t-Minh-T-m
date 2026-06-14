@@ -38,14 +38,6 @@ export default function TypewriterLetter({ active, onDone }: TypewriterLetterPro
       className="flex h-full flex-col"
     >
       <div className="letter-scroll">
-        <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.96 }}
-          animate={{ opacity: active ? 1 : 0, y: active ? 0 : 10, scale: active ? 1 : 0.96 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="birthday-letter-title"
-        >
-          HAPPY BIRTHDAY
-        </motion.div>
         {parts.map((part, index) => {
           if (!part) return null;
 

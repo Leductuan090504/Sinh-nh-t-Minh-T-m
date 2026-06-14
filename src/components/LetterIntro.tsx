@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Envelope from './Envelope';
 import FlipLetter from './FlipLetter';
+import RealisticEnvelope from './RealisticEnvelope';
 
 type LetterIntroProps = {
   onOpen: () => void;
@@ -32,12 +32,13 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }}
       transition={{ duration: 0.8 }}
-      className="letter-intro-surface relative z-10 flex min-h-screen w-full cursor-pointer items-center justify-center overflow-hidden px-4 py-8 text-left"
-      aria-label={isOpen ? 'Chạm để xem thông tin sinh nhật' : 'Chạm để mở thư'}
+      className="envelope-scene relative z-10 flex min-h-screen w-full cursor-pointer items-center justify-center overflow-hidden px-4 py-8 text-left"
+      aria-label={isOpen ? 'View birthday details' : 'Open birthday letter'}
     >
+      <div className="starry-background" />
       <div className="letter-scene">
         <div className="letter-stage">
-          <Envelope isOpen={isOpen} />
+          <RealisticEnvelope isOpen={isOpen} />
           <FlipLetter isOpen={isOpen} onTypingDone={() => setIsReadyForNext(true)} />
         </div>
 

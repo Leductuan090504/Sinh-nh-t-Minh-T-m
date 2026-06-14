@@ -8,7 +8,7 @@ type FlipLetterProps = {
 };
 
 export default function FlipLetter({ isOpen, onTypingDone }: FlipLetterProps) {
-  const [isFrontVisible, setIsFrontVisible] = useState(false);
+  const [isContentActive, setIsContentActive] = useState(false);
 
   return (
     <motion.div
@@ -16,30 +16,31 @@ export default function FlipLetter({ isOpen, onTypingDone }: FlipLetterProps) {
       initial={false}
       animate={{
         x: '-50%',
-        y: isOpen ? -112 : 86,
+        y: isOpen ? -128 : 126,
         opacity: isOpen ? 1 : 0,
-        scale: isOpen ? 1 : 0.86,
+        scale: isOpen ? 1 : 0.92,
       }}
-      transition={{ duration: 1, delay: isOpen ? 0.42 : 0, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 1.28, delay: isOpen ? 0.92 : 0, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div
         className="flip-letter"
         initial={false}
         animate={{ rotateY: isOpen ? 180 : 0 }}
-        transition={{ duration: 1.15, delay: isOpen ? 1.08 : 0, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1.12, delay: isOpen ? 2.42 : 0, ease: [0.65, 0, 0.35, 1] }}
         onAnimationComplete={() => {
           if (isOpen) {
-            setIsFrontVisible(true);
+            setIsContentActive(true);
           }
         }}
       >
-        <div className="flip-letter__face flip-letter__back">
-          <div className="letter-back-mark">
-            <span>For you</span>
+        <div className="flip-letter__face flip-letter__cover">
+          <div className="letter-cover-title">
+            <span>HAPPY</span>
+            <strong>BIRTHDAY</strong>
           </div>
         </div>
-        <div className="flip-letter__face flip-letter__front">
-          <TypewriterLetter active={isFrontVisible} onDone={onTypingDone} />
+        <div className="flip-letter__face flip-letter__content">
+          <TypewriterLetter active={isContentActive} onDone={onTypingDone} />
         </div>
       </motion.div>
     </motion.div>
