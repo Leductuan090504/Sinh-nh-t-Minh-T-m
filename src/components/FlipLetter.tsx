@@ -18,11 +18,11 @@ export default function FlipLetter({ phase, onFlipComplete, onTypingDone }: Flip
   const hasRunFlipRef = useRef(false);
 
   useEffect(() => {
-    if (phase === 'closed') {
-      hasRunFlipRef.current = false;
-      setLetterSide('cover');
-      void controls.set({ rotateY: 0 });
-    }
+    if (phase !== 'closed') return;
+
+    hasRunFlipRef.current = false;
+    setLetterSide('cover');
+    controls.set({ rotateY: 0 });
   }, [controls, phase]);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ export default function FlipLetter({ phase, onFlipComplete, onTypingDone }: Flip
       });
 
       setLetterSide('message');
+      controls.set({ rotateY: -90 });
 
       await controls.start({
         rotateY: 0,
@@ -60,11 +61,7 @@ export default function FlipLetter({ phase, onFlipComplete, onTypingDone }: Flip
       }}
       transition={{ duration: 1.25, ease: [0.22, 1, 0.36, 1] }}
     >
-      <motion.div
-        className="letter-inner"
-        initial={{ rotateY: 0 }}
-        animate={controls}
-      >
+      <motion.div className="letter-card" initial={{ rotateY: 0 }} animate={controls}>
         {letterSide === 'cover' ? (
           <div className="letter-cover">
             <div className="birthday-title">

@@ -1587,3 +1587,123 @@ button {
     padding: 22px 20px;
   }
 }
+
+/* Focused fix: lower/larger envelope and single-face readable letter. */
+.envelope-stage {
+  width: min(88vw, 620px);
+  height: min(46vh, 360px);
+  transform: translateY(12vh) rotateZ(-2deg);
+}
+
+.letter-perspective {
+  bottom: 42%;
+  perspective: 1400px;
+}
+
+.letter-card {
+  width: min(86vw, 470px);
+  height: min(72vh, 660px);
+  max-height: calc(100vh - 120px);
+  border-radius: 24px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  filter: drop-shadow(0 22px 42px rgba(40, 20, 15, 0.24));
+}
+
+.letter-cover,
+.letter-message {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.7), transparent 28%),
+    linear-gradient(135deg, #fff7e8, #ead6a8);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  transform: none !important;
+}
+
+.letter-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter-message {
+  display: block;
+}
+
+.birthday-title {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 18px;
+  text-align: center;
+  font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.08em;
+  color: #8b5a2b;
+}
+
+.birthday-title span {
+  display: block;
+}
+
+.letter-message-content {
+  box-sizing: border-box;
+  height: 100%;
+  padding: clamp(18px, 3.6vw, 34px);
+  overflow: hidden;
+  color: #4f2f3f;
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-size: clamp(0.82rem, 1.75vw, 1.05rem);
+  line-height: 1.38;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(8px, 1.4vh, 14px);
+}
+
+.letter-message-content p {
+  margin: 0;
+  color: #4f2f3f;
+}
+
+.letter-greeting {
+  font-size: clamp(1.5rem, 4.5vw, 2.35rem);
+  color: #6f3f58;
+}
+
+.signature {
+  font-family: 'Great Vibes', 'Allura', cursive;
+  font-size: clamp(1.8rem, 5.5vw, 3rem);
+  line-height: 1;
+  color: #8b5a2b;
+}
+
+@media (max-width: 640px) {
+  .envelope-stage {
+    width: min(92vw, 430px);
+    height: min(42vh, 320px);
+    transform: translateY(12vh) rotateZ(-2deg);
+  }
+
+  .letter-card {
+    width: min(90vw, 390px);
+    height: min(68vh, 610px);
+    max-height: calc(100vh - 110px);
+  }
+
+  .letter-message-content {
+    padding: 18px 18px;
+    font-size: clamp(0.8rem, 2.55vw, 0.98rem);
+    line-height: 1.34;
+    gap: 8px;
+  }
+
+  .birthday-title {
+    font-size: clamp(2.05rem, 10vw, 3.45rem);
+    letter-spacing: 0.055em;
+  }
+}
