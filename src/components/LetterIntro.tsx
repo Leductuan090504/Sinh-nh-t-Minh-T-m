@@ -38,8 +38,9 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
       <div className="starry-background" />
       <div className="letter-scene">
         <div className="letter-stage">
-          <RealisticEnvelope isOpen={isOpen} />
-          <FlipLetter isOpen={isOpen} onTypingDone={() => setIsReadyForNext(true)} />
+          <RealisticEnvelope isOpen={isOpen}>
+            <FlipLetter isOpen={isOpen} onTypingDone={() => setIsReadyForNext(true)} />
+          </RealisticEnvelope>
         </div>
 
         <motion.p

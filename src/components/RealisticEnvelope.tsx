@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 
 type RealisticEnvelopeProps = {
   isOpen: boolean;
+  children: ReactNode;
 };
 
-export default function RealisticEnvelope({ isOpen }: RealisticEnvelopeProps) {
+export default function RealisticEnvelope({ isOpen, children }: RealisticEnvelopeProps) {
   const [useFallback, setUseFallback] = useState(false);
   const useImageAsset = import.meta.env.VITE_USE_ENVELOPE_ASSET === 'true';
 
@@ -23,20 +25,20 @@ export default function RealisticEnvelope({ isOpen }: RealisticEnvelopeProps) {
       )}
 
       <div className="envelope-back" />
-      <div className="letter-slot-mask" />
+      <div className="letter-mask">{children}</div>
       <div className="envelope-front-pocket" />
-      <div className="side-fold-left" />
-      <div className="side-fold-right" />
+      <div className="side-fold side-fold-left" />
+      <div className="side-fold side-fold-right" />
 
       <motion.div
         className="front-flap"
         initial={false}
-        animate={{ rotateX: isOpen ? -154 : 0, y: isOpen ? -6 : 0 }}
-        transition={{ duration: 1.45, ease: [0.65, 0, 0.35, 1] }}
+        animate={{ rotateX: isOpen ? -165 : 0, y: isOpen ? -8 : 0 }}
+        transition={{ duration: 1.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <motion.div
           className="wax-seal"
-          animate={{ opacity: isOpen ? 0.82 : 1, scale: isOpen ? 0.84 : 1 }}
+          animate={{ opacity: isOpen ? 0.72 : 1, scale: isOpen ? 0.82 : 1 }}
           transition={{ duration: 0.75, ease: 'easeInOut' }}
         >
           <span>MT</span>

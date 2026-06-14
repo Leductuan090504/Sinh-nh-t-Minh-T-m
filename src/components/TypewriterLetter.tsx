@@ -35,7 +35,7 @@ export default function TypewriterLetter({ active, onDone }: TypewriterLetterPro
       initial={{ opacity: 0 }}
       animate={{ opacity: active ? 1 : 0 }}
       transition={{ duration: 0.45 }}
-      className="flex h-full flex-col"
+      className="letter-message-content"
     >
       <div className="letter-scroll">
         {parts.map((part, index) => {
