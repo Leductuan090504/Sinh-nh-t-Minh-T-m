@@ -37,7 +37,6 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
       window.setTimeout(() => setPhase('risingLetter'), 700),
       window.setTimeout(() => setPhase('showingCover'), 2100),
       window.setTimeout(() => setPhase('flippingLetter'), 2900),
-      window.setTimeout(() => setPhase('showingMessage'), 4050),
     ];
   };
 
@@ -66,7 +65,11 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
       <div className="starry-background" />
       <div className="letter-scene">
         <RealisticEnvelope phase={phase}>
-          <FlipLetter phase={phase} onTypingDone={() => setIsReadyForNext(true)} />
+          <FlipLetter
+            phase={phase}
+            onFlipComplete={() => setPhase('showingMessage')}
+            onTypingDone={() => setIsReadyForNext(true)}
+          />
         </RealisticEnvelope>
 
         <motion.p
