@@ -1,8 +1,8 @@
 export const invitation = {
   title: 'Thiệp mời sinh nhật Minh Tâm',
   birthdayName: 'Huỳnh Thị Minh Tâm',
-  date: '2026-06-17',
-  displayDate: '17/06/2026',
+  date: '2026-06-16',
+  displayDate: '16/06/2026',
   time: '19:00',
   locationName: 'Ốc Đêm Chú Kiệt',
   mapsUrl:

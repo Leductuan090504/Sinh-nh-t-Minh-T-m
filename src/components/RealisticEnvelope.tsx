@@ -5,13 +5,14 @@ import type { IntroPhase } from './LetterIntro';
 type RealisticEnvelopeProps = {
   phase: IntroPhase;
   children: ReactNode;
+  mobileReadingMode?: boolean;
 };
 
 const isOpened = (phase: IntroPhase) => phase !== 'closed';
 
-export default function RealisticEnvelope({ phase, children }: RealisticEnvelopeProps) {
+export default function RealisticEnvelope({ phase, children, mobileReadingMode = false }: RealisticEnvelopeProps) {
   return (
-    <div className="envelope-stage">
+    <div className={`envelope-stage ${mobileReadingMode ? 'mobile-reading-mode' : ''}`}>
       <div className="envelope-back" />
 
       <div className="letter-slot">{children}</div>

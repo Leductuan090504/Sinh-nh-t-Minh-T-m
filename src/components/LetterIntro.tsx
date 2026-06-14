@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import FlipLetter from './FlipLetter';
 import RealisticEnvelope from './RealisticEnvelope';
+import useMediaQuery from '../hooks/useMediaQuery';
 
 export type IntroPhase =
   | 'closed'
@@ -20,6 +21,7 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
   const [phase, setPhase] = useState<IntroPhase>('closed');
   const [isReadyForNext, setIsReadyForNext] = useState(false);
   const timersRef = useRef<number[]>([]);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     return () => {
@@ -64,7 +66,7 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
     >
       <div className="starry-background" />
       <div className="letter-scene">
-        <RealisticEnvelope phase={phase}>
+        <RealisticEnvelope phase={phase} mobileReadingMode={isMobile && phase === 'showingMessage'}>
           <FlipLetter
             phase={phase}
             onFlipComplete={() => setPhase('showingMessage')}

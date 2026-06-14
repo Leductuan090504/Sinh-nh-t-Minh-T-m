@@ -35,16 +35,16 @@ export default function FlipLetter({ phase, onFlipComplete, onTypingDone }: Flip
     const flipToMessage = async () => {
       await controls.start({
         rotateY: 90,
-        scale: isMobile ? 1.08 : 1.02,
+        scale: isMobile ? 1.02 : 1.02,
         transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
       });
 
       setLetterSide('message');
-      controls.set({ rotateY: -90, scale: isMobile ? 1.08 : 1.02 });
+      controls.set({ rotateY: -90, scale: isMobile ? 1.02 : 1.02 });
 
       await controls.start({
         rotateY: 0,
-        scale: isMobile ? 1.22 : 1.05,
+        scale: isMobile ? 1.02 : 1.05,
         transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
       });
 
