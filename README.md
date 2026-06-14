@@ -1,6 +1,6 @@
 # Thiệp mời sinh nhật Minh Tâm
 
-Website thiệp mời sinh nhật cho Huỳnh Thị Minh Tâm, thiết kế theo phong cách luxury romantic birthday invitation: intro cinematic, phong thư mở bất ngờ, hiệu ứng confetti/trái tim và thiệp chính dạng landing page hiện đại.
+Website thiệp mời sinh nhật cho Huỳnh Thị Minh Tâm, thiết kế như trải nghiệm mở một lá thư/tin nhắn trên điện thoại: cinematic, lãng mạn, có nhạc nền, countdown, bản đồ và file lịch `.ics`.
 
 ## Cách chạy project
 
@@ -11,19 +11,19 @@ npm install
 npm run dev
 ```
 
-Sau đó mở địa chỉ Vite hiển thị trong terminal, thường là:
+Mở địa chỉ Vite hiển thị trong terminal, thường là:
 
 ```bash
 http://localhost:5173
 ```
 
-Build bản production:
+Build production:
 
 ```bash
 npm run build
 ```
 
-Xem thử bản production sau khi build:
+Preview bản production:
 
 ```bash
 npm run preview
@@ -31,100 +31,80 @@ npm run preview
 
 ## Thêm ảnh Minh Tâm
 
-Đặt ảnh vào thư mục:
-
-```text
-public/images/
-```
-
-Tên file nên đặt chính xác là:
-
-```text
-minh-tam.jpg
-```
-
-Đường dẫn đầy đủ:
+Đặt ảnh tại:
 
 ```text
 public/images/minh-tam.jpg
 ```
 
-Nếu chưa có ảnh, website vẫn chạy bình thường và hiển thị placeholder đẹp với khung ảnh luxury.
+Nếu chưa có ảnh, website sẽ hiển thị placeholder: `Đặt ảnh tại public/images/minh-tam.jpg`.
 
-## Thay ảnh
-
-Cách đơn giản nhất: thay file `public/images/minh-tam.jpg` bằng ảnh mới cùng tên.
-
-Nếu muốn dùng tên file khác, sửa trong:
+Nếu muốn đổi tên file ảnh, sửa trường `imagePath` trong:
 
 ```text
 src/config/invitation.ts
 ```
 
-Dòng cần sửa:
+## Thêm nhạc nền
 
-```ts
-imagePath: '/images/minh-tam.jpg',
+Website phát file:
+
+```text
+public/audio/background.mp3
 ```
 
-Ví dụ:
+Bạn hãy đặt một bài nhạc nước ngoài du dương, trầm ấm, không bản quyền vào `public/audio/background.mp3`.
 
-```ts
-imagePath: '/images/anh-moi.jpg',
-```
+Nhạc chỉ phát sau khi người dùng bấm/chạm để mở thiệp, vì trình duyệt thường chặn autoplay. Có nút bật/tắt nhạc ở góc màn hình.
 
-## Thay lời chúc, thời gian, địa điểm
+Gợi ý nguồn nhạc không bản quyền:
 
-Toàn bộ nội dung chính nằm trong file:
+- Pixabay Music
+- YouTube Audio Library
+- Free Music Archive
+
+Từ khóa nên tìm:
+
+- `warm romantic piano instrumental`
+- `soft birthday background music`
+- `cinematic romantic piano no copyright`
+
+## Sửa nội dung thiệp
+
+Toàn bộ nội dung chính nằm trong:
 
 ```text
 src/config/invitation.ts
 ```
 
-Bạn có thể sửa các trường:
+Các thông tin hiện tại:
 
-```ts
-title: 'Thiệp mời sinh nhật Minh Tâm',
-birthdayName: 'Huỳnh Thị Minh Tâm',
-date: '2026-06-17',
-displayDate: '17/06/2026',
-time: '19:00',
-locationName: 'Ốc Đêm Chú Kiệt',
-mapsUrl: '...',
-message: '...',
-imagePath: '/images/minh-tam.jpg',
+- Sinh nhật: Huỳnh Thị Minh Tâm
+- Ngày: 17/06/2026
+- Giờ: 19:00
+- Địa điểm: Ốc Đêm Chú Kiệt
+- Ảnh: `public/images/minh-tam.jpg`
+- Nhạc: `public/audio/background.mp3`
+
+## Deploy Vercel
+
+Project dùng React + Vite + TypeScript.
+
+Vercel config đã đặt trong `vercel.json`:
+
+```json
+{
+  "framework": "vite",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
+}
 ```
 
-Lưu ý:
+Script build trong `package.json` giữ là:
 
-- `date` dùng định dạng `YYYY-MM-DD` để countdown và Google Calendar chạy đúng.
-- `displayDate` là ngày hiển thị trên giao diện.
-- `time` dùng định dạng 24 giờ, ví dụ `19:00`.
-- `mapsUrl` là link Google Maps mở khi bấm vào địa điểm hoặc nút "Xem địa điểm".
-
-## Cấu trúc chính
-
-```text
-src/
-  components/
-    OpeningSurprise.tsx
-    BirthdayCard.tsx
-    Countdown.tsx
-    FloatingDecorations.tsx
-    ConfettiEffect.tsx
-    SaveCalendarButton.tsx
-  config/
-    invitation.ts
-  styles/
-    index.css
-public/
-  images/
-    minh-tam.jpg
+```json
+"build": "vite build"
 ```
 
-## Ghi chú thiết kế
-
-- Intro dùng phong thư luxury tạo bằng CSS, có ánh sáng quét, sparkle và heart floating.
-- Thiệp chính có gradient mesh, bokeh, glassmorphism, khung ảnh viền ánh kim và countdown dạng glass pill.
-- Nút "Lưu lịch" mở Google Calendar với sẵn tên sự kiện, thời gian và địa điểm.
-- Font chính dùng Google Fonts: Cormorant Garamond cho tiêu đề và Be Vietnam Pro cho nội dung.
+Khi push lên GitHub branch `main`, Vercel có thể tự build và deploy.

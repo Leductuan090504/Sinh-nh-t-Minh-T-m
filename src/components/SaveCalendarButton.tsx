@@ -1,31 +1,55 @@
 import { CalendarPlus } from 'lucide-react';
 import { eventDateTime, invitation } from '../config/invitation';
 
-const calendarUrl = (() => {
-  const start = new Date(eventDateTime);
-  const end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
-  const format = (date: Date) => date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-  const params = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: `Sinh nhật ${invitation.birthdayName}`,
-    dates: `${format(start)}/${format(end)}`,
-    details: invitation.message,
-    location: invitation.locationName,
-  });
+function formatIcsDate(date: Date) {
+  return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+}
 
-  return `https://calendar.google.com/calendar/render?${params.toString()}`;
-})();
+function escapeIcsText(text: string) {
+  return text.replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n');
+}
 
 export default function SaveCalendarButton() {
+  const handleSave = () => {
+    const start = new Date(eventDateTime);
+    const end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Minh Tam Birthday Invitation//VI',
+      'CALSCALE:GREGORIAN',
+      'BEGIN:VEVENT',
+      `UID:minh-tam-birthday-${start.getTime()}@invitation.local`,
+      `DTSTAMP:${formatIcsDate(new Date())}`,
+      `DTSTART:${formatIcsDate(start)}`,
+      `DTEND:${formatIcsDate(end)}`,
+      `SUMMARY:${escapeIcsText(`Sinh nhật ${invitation.birthdayName}`)}`,
+      `DESCRIPTION:${escapeIcsText(invitation.message)}`,
+      `LOCATION:${escapeIcsText(invitation.locationName)}`,
+      `URL:${invitation.mapsUrl}`,
+      'END:VEVENT',
+      'END:VCALENDAR',
+    ].join('\r\n');
+
+    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'sinh-nhat-minh-tam.ics';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
-    <a
-      href={calendarUrl}
-      target="_blank"
-      rel="noreferrer"
-      className="group inline-flex min-h-14 flex-1 items-center justify-center gap-3 rounded-full border border-[#e7cf9a]/70 bg-white/65 px-6 py-4 text-sm font-bold text-[#7a4b6d] shadow-[0_14px_40px_rgba(167,116,139,0.16)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#d8b86c] hover:bg-white/85 hover:shadow-gold"
+    <button
+      type="button"
+      onClick={handleSave}
+      className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full border border-white/16 bg-white/10 px-6 py-4 text-sm font-bold text-[#fff7eb] shadow-[0_18px_48px_rgba(0,0,0,0.18)] backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/16"
     >
-      <CalendarPlus size={19} className="transition group-hover:rotate-6" />
+      <CalendarPlus size={18} />
       Lưu lịch
-    </a>
+    </button>
   );
 }
