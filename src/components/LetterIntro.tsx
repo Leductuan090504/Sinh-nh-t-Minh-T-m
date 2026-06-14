@@ -1,7 +1,15 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FlipLetter from './FlipLetter';
 import RealisticEnvelope from './RealisticEnvelope';
+
+export type IntroPhase =
+  | 'closed'
+  | 'openingFlap'
+  | 'risingLetter'
+  | 'showingCover'
+  | 'flippingLetter'
+  | 'showingMessage';
 
 type LetterIntroProps = {
   onOpen: () => void;
@@ -9,13 +17,33 @@ type LetterIntroProps = {
 };
 
 export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [phase, setPhase] = useState<IntroPhase>('closed');
   const [isReadyForNext, setIsReadyForNext] = useState(false);
+  const timersRef = useRef<number[]>([]);
+
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, []);
+
+  const openLetter = () => {
+    if (phase !== 'closed') return;
+
+    onOpen();
+    setPhase('openingFlap');
+
+    timersRef.current = [
+      window.setTimeout(() => setPhase('risingLetter'), 700),
+      window.setTimeout(() => setPhase('showingCover'), 2100),
+      window.setTimeout(() => setPhase('flippingLetter'), 2900),
+      window.setTimeout(() => setPhase('showingMessage'), 4050),
+    ];
+  };
 
   const handlePress = () => {
-    if (!isOpen) {
-      setIsOpen(true);
-      onOpen();
+    if (phase === 'closed') {
+      openLetter();
       return;
     }
 
@@ -33,15 +61,13 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
       exit={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }}
       transition={{ duration: 0.8 }}
       className="envelope-scene relative z-10 flex min-h-screen w-full cursor-pointer items-center justify-center overflow-hidden px-4 py-8 text-left"
-      aria-label={isOpen ? 'View birthday details' : 'Open birthday letter'}
+      aria-label={phase === 'closed' ? 'Open birthday letter' : 'View birthday details'}
     >
       <div className="starry-background" />
       <div className="letter-scene">
-        <div className="letter-stage">
-          <RealisticEnvelope isOpen={isOpen}>
-            <FlipLetter isOpen={isOpen} onTypingDone={() => setIsReadyForNext(true)} />
-          </RealisticEnvelope>
-        </div>
+        <RealisticEnvelope phase={phase}>
+          <FlipLetter phase={phase} onTypingDone={() => setIsReadyForNext(true)} />
+        </RealisticEnvelope>
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
