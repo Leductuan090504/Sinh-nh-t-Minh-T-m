@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TypewriterLetter from './TypewriterLetter';
 
 type FlipLetterProps = {
@@ -9,12 +9,6 @@ type FlipLetterProps = {
 
 export default function FlipLetter({ isOpen, onTypingDone }: FlipLetterProps) {
   const [isFrontVisible, setIsFrontVisible] = useState(false);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const timeout = window.setTimeout(() => setIsFrontVisible(true), 1650);
-    return () => window.clearTimeout(timeout);
-  }, [isOpen]);
 
   return (
     <motion.div
@@ -33,6 +27,11 @@ export default function FlipLetter({ isOpen, onTypingDone }: FlipLetterProps) {
         initial={false}
         animate={{ rotateY: isOpen ? 180 : 0 }}
         transition={{ duration: 1.15, delay: isOpen ? 1.08 : 0, ease: [0.22, 1, 0.36, 1] }}
+        onAnimationComplete={() => {
+          if (isOpen) {
+            setIsFrontVisible(true);
+          }
+        }}
       >
         <div className="flip-letter__face flip-letter__back">
           <div className="letter-back-mark">

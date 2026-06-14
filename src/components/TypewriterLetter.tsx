@@ -30,9 +30,6 @@ export default function TypewriterLetter({ active, onDone }: TypewriterLetterPro
 
   const visibleText = fullMessage.slice(0, visibleCount);
   const parts = useMemo(() => visibleText.split('\n\n'), [visibleText]);
-  const signatureText = 'With love,\nMinh Tam';
-  const shouldShowSignature = visibleText.includes('With love,');
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -41,17 +38,29 @@ export default function TypewriterLetter({ active, onDone }: TypewriterLetterPro
       className="flex h-full flex-col"
     >
       <div className="letter-scroll">
+        <motion.div
+          initial={{ opacity: 0, y: 10, scale: 0.96 }}
+          animate={{ opacity: active ? 1 : 0, y: active ? 0 : 10, scale: active ? 1 : 0.96 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="birthday-letter-title"
+        >
+          HAPPY BIRTHDAY
+        </motion.div>
         {parts.map((part, index) => {
           if (!part) return null;
 
           const isGreeting = index === 0;
-          const isSignature = shouldShowSignature && signatureText.startsWith(part.trim());
+          const trimmedPart = part.trim();
+          const isSignature = trimmedPart === 'With love,' || trimmedPart === 'Minh Tam';
 
           if (isSignature) {
             return (
-              <p key={index} className="mt-6 whitespace-pre-line font-display text-3xl font-bold leading-8 text-[#8a496a]">
-                {part}
-              </p>
+              <div key={index} className="mt-7 whitespace-pre-line text-[#8a496a]">
+                {trimmedPart === 'With love,' && <p className="font-display text-2xl font-bold leading-8">{part}</p>}
+                {trimmedPart === 'Minh Tam' && (
+                  <p className="mt-2 font-signature text-4xl leading-none text-[#7b405e]">Minh Tam</p>
+                )}
+              </div>
             );
           }
 

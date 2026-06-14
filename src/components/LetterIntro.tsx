@@ -32,19 +32,10 @@ export default function LetterIntro({ onOpen, onComplete }: LetterIntroProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }}
       transition={{ duration: 0.8 }}
-      className="relative z-10 flex min-h-screen w-full cursor-pointer items-center justify-center overflow-hidden px-4 py-8 text-left"
+      className="letter-intro-surface relative z-10 flex min-h-screen w-full cursor-pointer items-center justify-center overflow-hidden px-4 py-8 text-left"
       aria-label={isOpen ? 'Chạm để xem thông tin sinh nhật' : 'Chạm để mở thư'}
     >
       <div className="letter-scene">
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: isOpen ? 0 : 1, y: isOpen ? -18 : 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-7 text-center text-xs font-bold uppercase tracking-[0.34em] text-[#ffdca8]"
-        >
-          Tap to open the letter
-        </motion.p>
-
         <div className="letter-stage">
           <Envelope isOpen={isOpen} />
           <FlipLetter isOpen={isOpen} onTypingDone={() => setIsReadyForNext(true)} />

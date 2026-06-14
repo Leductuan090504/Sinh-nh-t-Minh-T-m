@@ -8,6 +8,7 @@ type EnvelopeProps = {
 export default function Envelope({ isOpen }: EnvelopeProps) {
   return (
     <div className="intro-envelope" aria-hidden="true">
+      <div className="intro-envelope__paper-grain" />
       <motion.div
         className="intro-envelope__peek-letter"
         animate={{
@@ -17,6 +18,8 @@ export default function Envelope({ isOpen }: EnvelopeProps) {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       />
       <div className="intro-envelope__body" />
+      <div className="intro-envelope__left-fold" />
+      <div className="intro-envelope__right-fold" />
       <motion.div
         className="intro-envelope__flap"
         animate={{ rotateX: isOpen ? -172 : 0, y: isOpen ? -8 : 0 }}
