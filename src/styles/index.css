@@ -1707,3 +1707,67 @@ button {
     letter-spacing: 0.055em;
   }
 }
+
+/* Mobile reading mode: keep rise safe, then enlarge the message after the 90-degree content swap. */
+.mobile-reading-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(28, 9, 38, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.letter-card {
+  width: min(70vw, 470px);
+  height: min(72vh, 660px);
+}
+
+.letter-perspective.mobile-message-mode {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 30;
+  width: 94vw;
+  height: 88vh;
+  transform: translate(-50%, -50%) !important;
+  perspective: 1400px;
+}
+
+.letter-perspective.mobile-message-mode .letter-card {
+  width: 94vw;
+  height: 88vh;
+  max-width: 430px;
+  max-height: 720px;
+}
+
+.letter-perspective.mobile-message-mode .letter-message-content {
+  padding: clamp(20px, 5vw, 34px);
+  font-size: clamp(0.9rem, 3.4vw, 1.08rem);
+  line-height: 1.42;
+}
+
+@media (max-width: 768px) {
+  .envelope-stage {
+    transform: translateY(16vh) rotateZ(-2deg);
+  }
+
+  .letter-card {
+    width: min(86vw, 380px);
+    height: min(66vh, 560px);
+  }
+
+  .letter-perspective {
+    bottom: 42%;
+  }
+
+  .letter-message-content {
+    gap: clamp(8px, 1.2vh, 14px);
+  }
+}
+
+@media (max-height: 680px) {
+  .letter-message-content {
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+}
